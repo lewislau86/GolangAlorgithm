@@ -1,10 +1,19 @@
 package main
 
+import "fmt"
+
 type ListNode struct {
 	Val  int
 	Next *ListNode
 }
 
+/**
+ * 这个使用一个虚拟的头指针来遍历链表，这样就不用考虑链表为空的情况了
+ * head1 -> 2 -> 4 -> 3
+ * head2 -> 5 -> 6 -> 4
+ * head  -> 7 -> 0 -> 8
+ * carry 表示是否进位
+ */
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	head := &ListNode{Val: 0}
 	head1 := l1
@@ -24,6 +33,7 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 			n2 = head2.Val
 			head2 = head2.Next
 		}
+		// 这里有点没看懂
 		current.Next = &ListNode{Val: (n1 + n2 + carry) % 10}
 		current = current.Next
 		carry = (n1 + n2 + carry) / 10
@@ -35,24 +45,17 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 
 func main() {
 	// node1
-	node10 := new(ListNode)
-	node10.Val = 2
-	node11 := new(ListNode)
-	node11.Val = 4
-	node12 := new(ListNode)
-	node12.Val = 3
-	node10.Next = node11
-	node11.Next = node12
-	node12.Next = nil
+	node12 := &ListNode{Val: 3, Next: nil}
+	node11 := &ListNode{Val: 4, Next: node12}
+	node10 := &ListNode{Val: 2, Next: node11}
 	// node2
-	node20 := new(ListNode)
-	node20.Val = 5
-	node21 := new(ListNode)
-	node21.Val = 6
-	node22 := new(ListNode)
-	node22.Val = 4
-	node20.Next = node21
-	node21.Next = node22
-	node22.Next = nil
-	addTwoNumbers(node10, node20)
+	node22 := &ListNode{Val: 4, Next: nil}
+	node21 := &ListNode{Val: 6, Next: node22}
+	node20 := &ListNode{Val: 5, Next: node21}
+	result := addTwoNumbers(node10, node20)
+	for result != nil {
+		fmt.Print(result.Val)
+		result = result.Next
+	}
+
 }
