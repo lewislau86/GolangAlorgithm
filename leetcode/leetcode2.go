@@ -57,5 +57,4 @@ func main() {
 		fmt.Print(result.Val)
 		result = result.Next
 	}
-
 }
