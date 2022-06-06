@@ -78,6 +78,7 @@ func (node *Node) GetData() string {
 	return fmt.Sprintf("%v", node.Data)
 }
 
+///
 // 前序遍历
 func preOrderTraverse(treeNode *Node) {
 	// 节点为空则退出当前递归
